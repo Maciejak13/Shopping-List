@@ -1,0 +1,132 @@
+﻿<Page
+    x:Class="Shopping_List.ListOfProducts_Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Shopping_List"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+    <Grid Background="#0AA1DD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Background="#0AA1DD" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Margin="0,40,0,0">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="txt_Product_Name" Margin="10" Width="200" TextAlignment="Center" PlaceholderText="Nazwa produktu" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10,13,6,6" BorderBrush="#FF3BB4E4" CornerRadius="20"/>
+                <TextBox x:Name="txt_Product_Amount" Margin="10" Width="100" TextAlignment="Center" PlaceholderText="Ilość" Height="50"  Padding="10,13,6,6" BorderBrush="#FF3BB4E4" CornerRadius="20" />
+                <ComboBox x:Name="combo_Unit" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="10" Height="45" CornerRadius="10" SelectedItem="1"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="btn_Add_New_Product" Background="#FF0AA1DD" Click="btn_Add_New_Product_Click">
+                    <Image Source="Assets/plus.png" Width="35" FocusVisualPrimaryBrush="#FF961C1C"/>
+                </Button>
+                <Button x:Name="btn_Delete_Selected_Product" Background="#FF0AA1DD" Click="btn_Delete_Selected_Product_Click" >
+                    <Image Source="Assets/remove.png" Width="35" FocusVisualPrimaryBrush="#FF961C1C"/>
+                </Button>
+                <Button x:Name="btn_Change_Buy_Status_To_Buyed" Background="#FF0AA1DD" Click="btn_Change_Buy_Status_To_Buyed_Click">
+                    <Image Source="Assets/shopping-cart.png" Width="35" FocusVisualPrimaryBrush="#FF961C1C"/>
+                </Button>
+                <Button x:Name="btn_Change_Buy_Status_To_NotBuyed" Background="#FF0AA1DD" Click="btn_Change_Buy_Status_To_NotBuyed_Click" Visibility="Collapsed">
+                    <Image Source="Assets/remove-from-cart.png" Width="35" FocusVisualPrimaryBrush="#FF961C1C"/>
+                </Button>
+            </StackPanel>
+            
+            
+
+
+        </StackPanel>
+	
+
+		<ScrollViewer x:Name="scrollNotBuyed" Grid.Row="1" Background="#0AA1DD" Visibility="Visible">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <TextBlock x:Name="txt_ProductsToBuy" Text="Produkty do kupienia: " FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" FontWeight="Bold" Padding="10"/>
+                <TextBlock x:Name="txt_ProductsBuyed" Text="Produkty kupione: " FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" FontWeight="Bold" Padding="10"/>
+                <Grid x:Name="GridWithDataGrid" Background="#FF30C4FF" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20" Width="400" BorderBrush="#FF0B8DC1" BorderThickness="2" >
+                    <TextBlock x:Name="txt_NoElementsInList" Text="Nie dodałeś jeszcze żadnego produktu! Wpisz nazwę, kliknij plus aby to zrobić!" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" FontWeight="Bold" />
+                    <my:DataGrid x:Name="listViewProducts" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" HeadersVisibility="None"  Padding="50" Margin="20,20,20,20" VerticalAlignment="Center" FocusVisualPrimaryBrush="#FF0B8DC1" FocusVisualSecondaryBrush="#FF0B8DC1" Visibility="Visible" IsReadOnly="True"/>
+                    <StackPanel Orientation="Vertical" x:Name="sp_ChoseList" Visibility="Collapsed">
+                        <TextBlock x:Name="txt_ChoseListToEdit" Text="Wybierz liste do edycji" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" FontWeight="Bold" Padding="10"/>
+                        <my:DataGrid x:Name="listView" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" HeadersVisibility="None"  Padding="50" Margin="20,20,20,20" VerticalAlignment="Center" FocusVisualPrimaryBrush="#FF0B8DC1" FocusVisualSecondaryBrush="#FF0B8DC1" Visibility="Collapsed" IsReadOnly="True"/>
+                    </StackPanel>
+                    <TextBlock x:Name="txt_NoBuyedElements" Text="Nie kupiłeś żadnego produktu, kliknij wózek aby to zrobić!" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" FontWeight="Bold" />
+                    <my:DataGrid x:Name="listViewBuyed" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" HeadersVisibility="None"  Padding="50" Margin="20,20,20,20" VerticalAlignment="Center" FocusVisualPrimaryBrush="#FF0B8DC1" FocusVisualSecondaryBrush="#FF0B8DC1" Visibility="Collapsed" IsReadOnly="True"/>
+
+
+
+                </Grid>
+            </StackPanel>
+            
+
+            
+
+
+
+            
+        </ScrollViewer>
+
+       
+
+        
+        <Grid Grid.Row ="3" Background="#FF0B8DC1">
+
+            <StackPanel Orientation="Vertical">
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Wybrana lista: " TextAlignment="Center"  VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Width="10"></TextBlock>
+                    <TextBlock x:Name="txtChoosenList" TextAlignment="Center" VerticalAlignment="Center" Text="brak" FontWeight="Bold" FontSize="20"></TextBlock>
+                    <TextBlock Width="10"></TextBlock>
+                    <Button x:Name="b" Background="#FF0B8DC1" VerticalAlignment="Center" HorizontalAlignment="Center" Click="b_Click">
+                        <Image Source="Assets/answer.png" Width="35"/>
+                    </Button>
+
+                </StackPanel>
+
+
+                <Button x:Name="b2" Background="#FF0B8DC1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Click="b2_Click">
+                    <Image Source="Assets/accept.png" Width="35"/>
+                </Button>
+
+
+
+
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Background="#FF0B8DC1" >
+                    <Button x:Name="btn_Back"  Width="70" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" Click="btn_Back_Click" Background="#FF0B8DC1">
+                        <Image Source="Assets/previous.png" Width="42"/>
+                    </Button>
+                    <TextBlock Width="10"></TextBlock>
+                    <Button x:Name="btn_App_Exit" Width="70" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" Click="btn_App_Exit_Click"  Background="#FF0B8DC1">
+                        <Image Source="Assets/power.png" Width="42"/>
+                    </Button>
+                    <TextBlock Width="10"></TextBlock>
+                    <Button x:Name="btn_ShowBuyed" Width="70" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btn_ShowBuyed_Click" Background="#FF0B8DC1">
+
+                        <Image Source="Assets/exchange.png" Width="50"/>
+                        
+                    </Button>
+
+                    <Button x:Name="btn_ShowNotBuyed" Width="70"  Height="70" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" Visibility="Collapsed" Click="btn_ShowNotBuyed_Click" Background="#FF0B8DC1">
+                        <Image Source="Assets/exchange.png" Width="50"/>
+                    </Button>
+                    <TextBlock Width="10"></TextBlock>
+                    <Button x:Name="btn_GoToHelp"  Width="70" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center"  FontWeight="Normal" Background="#FF0B8DC1" Click="btn_GoToHelp_Click">
+                        <Image Source="Assets/ask.png" Width="42"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            
+           
+           
+
+        </Grid>
+        
+        
+    </Grid>
+</Page>
